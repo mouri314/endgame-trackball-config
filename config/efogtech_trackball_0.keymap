@@ -15,7 +15,7 @@
 #define LAYER_USER         5
 
 #define TWIST_MULTIPLIER   1
-#define TWIST_DIVISOR      1
+#define TWIST_DIVISOR      10
 
 #define SCROLL_MULTIPLIER  1
 #define SCROLL_DIVISOR     3
@@ -33,7 +33,7 @@
 			bindings = <
 				// buttons
 				&ltmkp LAYER_SNIPE ENTER  &ltmkp LAYER_SCROLL ESC
-				&mkp MCLK                 &kp DELETE
+				&mkp MCLK                 &cdch LAYER_SCROLL 0
 				&mkp LCLK                 &mkp RCLK
 				&ltm LAYER_EXTRAS MB4     &ltm LAYER_DEVICE MB5
 
@@ -114,6 +114,25 @@
 		};
 	};
 
+	behaviors {
+		cdch: click-double-click-hold {
+			compatible = "zmk,behavior-hold-tap";
+			display-name = "Copy/paste/layer (click/double-click/hold)";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <325>;
+			bindings = <&mo>, <&cdc>;
+		};
+
+		cdc: click-double-click {
+			compatible = "zmk,behavior-tap-dance";
+			display-name = "Copy/paste (click/double-click)";
+			#binding-cells = <0>;
+			tapping-term-ms = <300>;
+			bindings = <&kp LC(C)>, <&kp LC(V)>;
+		};
+	};
+
 	trackball {
 		input-processors = <&zip_scroll_scaler TWIST_MULTIPLIER TWIST_DIVISOR>,
 						   <&zip_pointer_accel>, <&zip_scroll_accel>,
@@ -135,6 +154,38 @@
 	};
 
 	macros {
+		scroll_down: scroll_down {
+			compatible = "zmk,behavior-macro";
+			display-name = "Scroll down";
+			#binding-cells = <0>;
+			wait-ms = <2>;
+			bindings = <&msc MOVE_Y(-2000)>;
+		};
+
+		scroll_up: scroll_up {
+			compatible = "zmk,behavior-macro";
+			display-name = "Scroll up";
+			#binding-cells = <0>;
+			wait-ms = <2>;
+			bindings = <&msc MOVE_Y(2000)>;
+		};
+
+		scroll_left: scroll_left {
+			compatible = "zmk,behavior-macro";
+			display-name = "Scroll left";
+			#binding-cells = <0>;
+			wait-ms = <2>;
+			bindings = <&msc MOVE_X(-2000)>;
+		};
+
+		scroll_right: scroll_right {
+			compatible = "zmk,behavior-macro";
+			display-name = "Scroll right";
+			#binding-cells = <0>;
+			wait-ms = <2>;
+			bindings = <&msc MOVE_X(2000)>;
+		};
+
 		rgb_tog: rgb_tog {
 			compatible = "zmk,behavior-macro";
 			display-name = "Toggle RGB";
