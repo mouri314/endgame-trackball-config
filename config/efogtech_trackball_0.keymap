@@ -38,8 +38,8 @@
 				&ltm LAYER_EXTRAS MB4     &ltm LAYER_DEVICE MB5
 
 				// rotary encoders
-				&kp C_VOL_UP              &kp LC(TAB)
-				&kp C_VOL_DN              &kp LC(LS(TAB))
+				&msc SCRL_UP              &msc SCRL_LEFT
+				&msc SCRL_DOWN            &msc SCRL_RIGHT
 			>;
 		};
 
